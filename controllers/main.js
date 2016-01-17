@@ -1,8 +1,14 @@
-var express = require('express');
-var router = express.Router();
+/* load main page */
+module.exports.index = function(app) {
+	app.get('/', function(req, res) {
+		res.render('index');
+	});
+};
 
-router.get('/', function(req, res) {
-	res.render('index');
-});
-
-module.exports = router;
+/* login info */
+module.exports.login = function(app) {
+	app.post('/login', function(req, res) {
+		res.render('index');
+		console.log(req.body.username + ' ' + req.body.password);
+	});
+};
