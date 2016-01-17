@@ -8,9 +8,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(require('/controllers/main'))
-//app.use(express.urlencoded());
-//app.use(express.json());
+app.use(require('/controllers/main'))
+app.use(express.urlencoded());
+app.use(express.json());
 
 app.get('/', function(req, res) {
 	res.render('index');
