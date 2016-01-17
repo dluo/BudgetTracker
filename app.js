@@ -11,6 +11,10 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
+app.post('/login', functon(req, res) {
+
+})
+
 app.listen(app.get('port'), function() {
 	console.log('Server up at port 3000');
 });
