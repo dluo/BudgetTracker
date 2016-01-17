@@ -2,6 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var main = require('./controllers/main');
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+	host: 'budgettrackerserver.database.windows.net',
+	user: 'shinigami',
+	password: 'Davidluo!',
+	database: 'BudgetTrackerDatabase'
+});
+
 var app = express();
 
 app.engine('ejs', require('ejs').__express);
@@ -16,7 +24,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 main.index(app);
-main.login(app);
+main.login(app, connection);
 
 app.listen(app.get('port'), function() {
 	console.log('Server up at port 3000');
