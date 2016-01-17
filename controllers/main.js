@@ -8,9 +8,11 @@ module.exports.index = function(app) {
 };
 
 /* login check */
-module.exports.login = function(app, connection) {
+module.exports.login = function(app, sql, config) {
 	app.post('/login', function(req, res) {
-		connection.query('SELECT password FROM Credentials', function(err, password) {
+		sql.connect(config, function(err){
+		var request = new sql.Request();
+		request.query("SELECT password FROM Credentials", function(err, password) {
 			console.log(password)
 			if (password) {
 
@@ -28,5 +30,7 @@ module.exports.login = function(app, connection) {
 		});
 		res.render('index');
 		console.log(req.body.username + ' ' + req.body.password);
+		});
+
 	});
 };

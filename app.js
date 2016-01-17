@@ -3,12 +3,18 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var main = require('./controllers/main');
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-	host: 'budgettrackerserver.database.windows.net',
-	user: 'shinigami',
-	password: 'Davidluo!',
-	database: 'BudgetTrackerDatabase'
-});
+var sql     = require('mssql');
+
+var config = {
+  server: 'budgettrackerserver.database.windows.net',
+  user:     'shinigami',
+  password: 'Davidluo!',
+  database: 'BudgetTrackerDatabase',
+  options: {
+        encrypt: true // Use this if you're on Windows Azure
+    }
+};
+
 
 var app = express();
 
@@ -24,7 +30,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 main.index(app);
-main.login(app, connection);
+main.login(app, sql, config);
 
 app.listen(app.get('port'), function() {
 	console.log('Server up at port 3000');
